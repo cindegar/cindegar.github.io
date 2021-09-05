@@ -24,7 +24,7 @@
 
   
 
-  <title>python 爬虫 学习笔记 | cindegar&#39;s blog</title>
+  <title>cindegar&#39;s blog</title>
 
   
 
@@ -98,11 +98,11 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">python 爬虫 学习笔记</h1>
+          <h1 class="title-wrap"></h1>
           <h2 class="title-sub-wrap">
             <strong>cindegar</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2021-09-02T05:00:10.329Z" itemprop="datePublished">2021-09-02</time>
+            <time  class="article-date" datetime="2021-09-05T01:12:28.354Z" itemprop="datePublished">2021-09-05</time>
           </h2>
           <ul class="wrap-list dark">
   
@@ -131,43 +131,33 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h4 id="人们访问一个网页的过程"><a href="#人们访问一个网页的过程" class="headerlink" title="人们访问一个网页的过程"></a>人们访问一个网页的过程</h4><ol>
-<li>输入网址发起请求</li>
-<li>等待服务器返回数据</li>
-<li>从网页找到需要的数据</li>
-<li>保存</li>
-</ol>
-<h4 id="1-发起请求"><a href="#1-发起请求" class="headerlink" title="1.发起请求"></a>1.发起请求</h4><p>这里用到requests库</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response = requesets.get(&#x27;https://www.xxx.com&#x27;)#请求网页</span><br><span class="line">print(response)#输出状态码，一般200表示正常。</span><br><span class="line">print(response.content)#.content才会输出源码</span><br></pre></td></tr></table></figure>
-
-
-<p>####2.解析源码<br>2.1 BeautifulSoup</p>
-<blockquote>
-<p>这里首先需要安装上述这些包，在<strong>cmd命令行</strong>中输入pip install xxx即可。<br>千万不要到python 环境下再用pip，python不识别pip指令，会报synnax error。</p>
-</blockquote>
-<p>BeautifulSoup的作用和os 类似，都是解析源码，但是正则表达式也需要单独学习。</p>
-<p>先说说BeautifulSoup的用法<br>首先<br>用requests得到的文档是有些混乱的<br>即上文response内封装的内容，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">soup = BeautifulSoup(解析的文档名，&#x27;解析器&#x27;)</span><br><span class="line">#就可以得到一个标准的缩进制结构内容了</span><br><span class="line">soup.title</span><br></pre></td></tr></table></figure>
-<p>附上几条常用</p>
+        <hr>
+<h2 id="title-plan-in-new-term"><a href="#title-plan-in-new-term" class="headerlink" title="title:plan in new term"></a>title:plan in new term</h2><p>#####首先应该干什么？<br>这是一个很困扰人的问题，人有很多想做的事，但是人的精力是有限的，想做的事情也应该理性的分个，并且划分出相应的时间，在有大把时间的时候才更突出时间管理的重要性。</p>
+<p>#####<strong>这学期想要去做的事情</strong></p>
 <ul>
-<li>soup.title   (得到这一串# <title>标题名</title>)  </li>
-<li>soup.title.string  (获得标题名)  </li>
-<li>soup.find_all(‘a’)  (获取网页中所有a标签对象)  </li>
+<li>500分以上通过六级，六级考试在12月18日。</li>
+<li>至少了解两个python常用库。</li>
+<li>计算机网络基础的精深。</li>
+<li>锻炼。</li>
+<li>至少阅读十本课外书。  </li>
+<li>所有的课程在85以上通过  ，期末考试在明年一月五六七号。</li>
+<li>琢磨一下学姐发过来的试验，西门子校赛在明年三月。</li>
 </ul>
-<p>接着上面的。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response = requesets.get(&#x27;https://www.xxx.com&#x27;)#请求网页</span><br><span class="line">print(response)#输出状态码，一般200表示正常。</span><br><span class="line">print(response.content，&#x27;lxml&#x27;)#.content才会输出源码,逗号后面跟的时解析器</span><br><span class="line"></span><br><span class="line">ana=BeautifulSoup(response.content)</span><br><span class="line">a_list = ana.find_all(&#x27;a&#x27;)#获取所有的a标签对象</span><br><span class="line">for a in a_list:</span><br><span class="line">    （print(a.get(&#x27;herf&#x27;)) #输出连接地址</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>3.2保存数据的方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">text = &#x27;&#x27;#创建一个空字符串</span><br><span class="line">for a in a_list:</span><br><span class="line">    herf=a.get(&#x27;href&#x27;)</span><br><span class="line">    text+=href+&#x27;\n&#x27;#加入到字符串并换行</span><br><span class="line">with open(&#x27;url.txt&#x27;,&#x27;w&#x27;) as f :</span><br><span class="line">    f.write(text)</span><br><span class="line">    #在当前路径下，以写的方式打开url.txt</span><br><span class="line">    #将text放入url.txt</span><br><span class="line">    #用with open as 的办法可以不用关闭，挺方便。</span><br></pre></td></tr></table></figure>
-
-
-<p>总结:<br>这只是大概的讲解了一下思路.还有请求头模拟的细节我在教程文章里都没看到</p>
-<p>访问<br>和运用BS4库应该是最为困难的部分<br>到时候单独写两篇笔记仔细学习.</p>
+<p>#####如何规划？</p>
+<ol>
+<li>首先最重要的，应该是英语六级。根据四级考试暴露出来的问题，问题主要出现在听力上，应该是加强训练的方向，需要做一些专题练习。但同时试卷也不应该停止。<br>在目前的时间下，每个星期做一张能够做12张，稍微少了，每个星期两张吧。</li>
+<li>其次是保持成绩在一定水平线上，上学期因为平常太过于懒惰导致最后期末复习的时候疲于奔命，因为急躁而缺乏节奏和冷静的思考，这是一个应该认真吸取的教训。</li>
+<li>竞赛相关或者兴趣相关的知识，尽量放在周五周六周末学习，并且顺便对着一个星期的知识做一个小总结。  </li>
+<li>平常晚上自己去自习室自习。大概6点半到9点自习，9点去操场做一些运动，回寝室多余的时间做些自己喜欢干的事情，不去想多余的事情。以一个平静的心态入睡。早上六点半到七点左右起床。</li>
+</ol>
+<p><em>2021.9.5</em></p>
 
       </section>
 
       
       
         <nav class="article-nav">
+          
           
             <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
@@ -176,21 +166,6 @@
       
         <a href="/2021/09/02/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Fre/" itemprop="url">
           <h2 class="card-text--title text-ellipsis">(no title)</h2>
-        </a>
-      
-      <div class="card-text--row">Newer</div>
-    </div>
-  </article>
-</div>
-          
-          
-            <div class="article-nav-item layout-padding">
-  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
-    
-    <div class="card-text">
-      
-        <a href="/2021/09/01/%E6%9A%91%E5%81%87%E6%80%BB%E7%BB%93/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">暑假总结</h2>
         </a>
       
       <div class="card-text--row">Older</div>

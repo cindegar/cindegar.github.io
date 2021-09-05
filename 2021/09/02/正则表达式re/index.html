@@ -24,7 +24,7 @@
 
   
 
-  <title>python 爬虫 学习笔记 | cindegar&#39;s blog</title>
+  <title>cindegar&#39;s blog</title>
 
   
 
@@ -98,11 +98,11 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">python 爬虫 学习笔记</h1>
+          <h1 class="title-wrap"></h1>
           <h2 class="title-sub-wrap">
             <strong>cindegar</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2021-09-02T05:00:10.329Z" itemprop="datePublished">2021-09-02</time>
+            <time  class="article-date" datetime="2021-09-02T15:31:17.239Z" itemprop="datePublished">2021-09-02</time>
           </h2>
           <ul class="wrap-list dark">
   
@@ -131,37 +131,19 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h4 id="人们访问一个网页的过程"><a href="#人们访问一个网页的过程" class="headerlink" title="人们访问一个网页的过程"></a>人们访问一个网页的过程</h4><ol>
-<li>输入网址发起请求</li>
-<li>等待服务器返回数据</li>
-<li>从网页找到需要的数据</li>
-<li>保存</li>
-</ol>
-<h4 id="1-发起请求"><a href="#1-发起请求" class="headerlink" title="1.发起请求"></a>1.发起请求</h4><p>这里用到requests库</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response = requesets.get(&#x27;https://www.xxx.com&#x27;)#请求网页</span><br><span class="line">print(response)#输出状态码，一般200表示正常。</span><br><span class="line">print(response.content)#.content才会输出源码</span><br></pre></td></tr></table></figure>
-
-
-<p>####2.解析源码<br>2.1 BeautifulSoup</p>
-<blockquote>
-<p>这里首先需要安装上述这些包，在<strong>cmd命令行</strong>中输入pip install xxx即可。<br>千万不要到python 环境下再用pip，python不识别pip指令，会报synnax error。</p>
-</blockquote>
-<p>BeautifulSoup的作用和os 类似，都是解析源码，但是正则表达式也需要单独学习。</p>
-<p>先说说BeautifulSoup的用法<br>首先<br>用requests得到的文档是有些混乱的<br>即上文response内封装的内容，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">soup = BeautifulSoup(解析的文档名，&#x27;解析器&#x27;)</span><br><span class="line">#就可以得到一个标准的缩进制结构内容了</span><br><span class="line">soup.title</span><br></pre></td></tr></table></figure>
-<p>附上几条常用</p>
+        <hr>
+<h2 id="title-正则表达式的学习笔记"><a href="#title-正则表达式的学习笔记" class="headerlink" title="title:正则表达式的学习笔记"></a>title:正则表达式的学习笔记</h2><h4 id="正则表达式的概念"><a href="#正则表达式的概念" class="headerlink" title="正则表达式的概念"></a>正则表达式的概念</h4><p>不再是一个固定的字符串匹配，变成了一种匹配的规则。  </p>
 <ul>
-<li>soup.title   (得到这一串# <title>标题名</title>)  </li>
-<li>soup.title.string  (获得标题名)  </li>
-<li>soup.find_all(‘a’)  (获取网页中所有a标签对象)  </li>
+<li>level1 搜索固定字符串<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line">text = &#x27;height:177,weight:160,student:420281,hash:123456&#x27;</span><br><span class="line">print(re.findall(r&#x27;123456&#x27;,text))</span><br></pre></td></tr></table></figure>
+解释：<br>re的findall()方法找到所有符合模式的字符串，即找到字符串中所有的123456.  </li>
 </ul>
-<p>接着上面的。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">response = requesets.get(&#x27;https://www.xxx.com&#x27;)#请求网页</span><br><span class="line">print(response)#输出状态码，一般200表示正常。</span><br><span class="line">print(response.content，&#x27;lxml&#x27;)#.content才会输出源码,逗号后面跟的时解析器</span><br><span class="line"></span><br><span class="line">ana=BeautifulSoup(response.content)</span><br><span class="line">a_list = ana.find_all(&#x27;a&#x27;)#获取所有的a标签对象</span><br><span class="line">for a in a_list:</span><br><span class="line">    （print(a.get(&#x27;herf&#x27;)) #输出连接地址</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>3.2保存数据的方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">text = &#x27;&#x27;#创建一个空字符串</span><br><span class="line">for a in a_list:</span><br><span class="line">    herf=a.get(&#x27;href&#x27;)</span><br><span class="line">    text+=href+&#x27;\n&#x27;#加入到字符串并换行</span><br><span class="line">with open(&#x27;url.txt&#x27;,&#x27;w&#x27;) as f :</span><br><span class="line">    f.write(text)</span><br><span class="line">    #在当前路径下，以写的方式打开url.txt</span><br><span class="line">    #将text放入url.txt</span><br><span class="line">    #用with open as 的办法可以不用关闭，挺方便。</span><br></pre></td></tr></table></figure>
-
-
-<p>总结:<br>这只是大概的讲解了一下思路.还有请求头模拟的细节我在教程文章里都没看到</p>
-<p>访问<br>和运用BS4库应该是最为困难的部分<br>到时候单独写两篇笔记仔细学习.</p>
+<ul>
+<li>level2 找到某一类字符<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">text = &#x27;height:177,weight:160,student:420281,hash:123456&#x27;</span><br><span class="line">print(re.findall(r&#x27;\d&#x27;,text))</span><br></pre></td></tr></table></figure>
+解释：此处\d可以表示所有的数字 ，所以1.7.9.8等都可以匹配到  </li>
+</ul>
+<p>####写正则表达式的步骤</p>
+<p>1.元字符<br>即有特定含义的字符。</p>
+<p>#时间原因，先放到这里，有时间再写</p>
 
       </section>
 
@@ -174,7 +156,7 @@
     
     <div class="card-text">
       
-        <a href="/2021/09/02/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Fre/" itemprop="url">
+        <a href="/2021/09/05/%E6%96%B0%E5%AD%A6%E6%9C%9F%E8%AE%A1%E5%88%92/" itemprop="url">
           <h2 class="card-text--title text-ellipsis">(no title)</h2>
         </a>
       
@@ -189,8 +171,8 @@
     
     <div class="card-text">
       
-        <a href="/2021/09/01/%E6%9A%91%E5%81%87%E6%80%BB%E7%BB%93/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">暑假总结</h2>
+        <a href="/2021/09/02/%E7%88%AC%E8%99%AB/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">python 爬虫 学习笔记</h2>
         </a>
       
       <div class="card-text--row">Older</div>
